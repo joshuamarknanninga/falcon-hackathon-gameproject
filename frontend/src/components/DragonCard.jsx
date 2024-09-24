@@ -1,4 +1,4 @@
-// src/components/DragonCard.js
+// src/components/DragonCard.jsx
 import React from 'react';
 
 const DragonCard = ({ dragon, onAttack }) => {
@@ -9,6 +9,7 @@ const DragonCard = ({ dragon, onAttack }) => {
       <p>Attack: {dragon.attack}</p>
       <p>Defense: {dragon.defense}</p>
       <p>Health: {dragon.health}</p>
+      <p className="description">{dragon.description}</p>
     </div>
   );
 };

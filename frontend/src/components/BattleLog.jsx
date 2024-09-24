@@ -1,4 +1,4 @@
-// src/components/BattleLog.js
+// src/components/BattleLog.jsx
 import React from 'react';
 
 const BattleLog = ({ log }) => {

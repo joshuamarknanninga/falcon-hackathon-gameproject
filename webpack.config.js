@@ -1,35 +1,42 @@
+// webpack.config.js
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',  // Your main React entry point
+    entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),  // Output to dist folder
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        publicPath: '/',
+    },
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        compress: true,
+        port: 3000,
+        historyApiFallback: true,
+        proxy: {
+            '/api': 'http://localhost:5000',
+        },
     },
     module: {
         rules: [
             {
-                test: /\.js$/,  // Transpile JavaScript and JSX files
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader'
-                }
+                use: ['babel-loader'],
             },
             {
-                test: /\.css$/,  // Process CSS files
-                use: ['style-loader', 'css-loader']
-            }
-        ]
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                type: 'asset/resource',
+            },
+        ],
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/index.html'  // Use a template HTML file
-        })
-    ],
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000
-    }
+    resolve: {
+        extensions: ['*', '.js', '.jsx'],
+    },
 };

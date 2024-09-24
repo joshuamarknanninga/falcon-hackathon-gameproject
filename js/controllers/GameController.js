@@ -2,6 +2,7 @@ import { Dragon } from '../models/Dragon.js';
 import { GameView } from '../views/GameView.js';
 import { BattleSystem } from '../utils/BattleSystem.js';
 import { AIPlayer } from '../utils/AIPlayer.js';
+import { DragonCreator } from '../utils/DragonCreator.js';
 
 export class GameController {
     constructor() {
@@ -33,7 +34,14 @@ export class GameController {
         this.logMessage('Generating a new dragon...');
         try {
             const dragonData = await DragonCreator.generateDragon();
-            const newDragon = new Dragon(dragonData.name, dragonData.attack, dragonData.defense, dragonData.health, dragonData.element, dragonData.image);
+            const newDragon = new Dragon(
+                dragonData.name,
+                dragonData.attack,
+                dragonData.defense,
+                dragonData.health,
+                dragonData.element,
+                dragonData.image
+            );
             this.view.renderNewDragon(newDragon);
             this.logMessage(`New dragon "${newDragon.name}" created and added to your deck!`);
         } catch (error) {
@@ -80,3 +88,4 @@ export class GameController {
         this.battleLog.scrollTop = this.battleLog.scrollHeight;
     }
 }
+
